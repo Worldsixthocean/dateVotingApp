@@ -7,6 +7,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import { UserContext } from '../ContextAndConfig/UserContext';
 
 import {userInList} from '../DataClass/event.js'
+import TristateCheckBox from '../Component/tristate_checkBox.js';
 
 function DateRow( {date, index, times, setTimes} ) {
 
@@ -26,15 +27,15 @@ function DateRow( {date, index, times, setTimes} ) {
         
     }
 
-
+    const value = userInList(times[index].available, user.uid)
     return (
         <>
-            <View style={{flexDirection:'row', alignItems:'center'}}>
+            <View style={{flexDirection:'row', alignItems:'center', paddingVertical:8}}>
                 <Text style={{paddingRight: 5}}>{date}</Text>
-                <Switch 
-                    style={{alignSelf:'flex-start'}} 
-                    onValueChange={(e)=>{toggle(e)}} 
-                    value={userInList(times[index].available, user.uid)}
+                <TristateCheckBox
+                    style={{alignSelf:'flex-start'}} color='#0065FF'
+                    onPress={()=>{toggle(!value)}} 
+                    check={value}
                 />
                 <Text style={{paddingLeft: 10}}>No. of people: {times[index].available.length}</Text>
             </View>

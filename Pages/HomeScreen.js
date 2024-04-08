@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { View, Text, Button } from 'react-native';
 import { useHeaderHeight } from '@react-navigation/elements';
 
@@ -11,8 +11,11 @@ import { auth } from '../ContextAndConfig/firebaseConfig.js';
 import { UserContext } from '../ContextAndConfig/UserContext.js';
 import PendingBox from '../Component/PendingBox.js'
 import importStyle from '../style.js';
+import TristateCheckBox from '../Component/tristate_checkBox.js';
 
 function HomeScreen({ navigation }) {
+
+  const [tickState, setTickState] = useState(0);
   
   const insets = useSafeAreaInsets();
   const headerHeight = useHeaderHeight();
@@ -67,6 +70,10 @@ function HomeScreen({ navigation }) {
                   console.log(err.message);
                 }
             }}/>
+            <TristateCheckBox size={25} style={{marginTop:20}} color='#0065FF'
+              onPress={()=>{setTickState(tickState == 2 ? 0 : tickState + 1) }}
+              check={tickState == 1} indeterminate={tickState == 2}/>
+            
         </View>
       </View>
     </View>
