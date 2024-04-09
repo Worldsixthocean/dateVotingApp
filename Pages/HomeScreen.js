@@ -12,10 +12,13 @@ import { UserContext } from '../ContextAndConfig/UserContext.js';
 import PendingBox from '../Component/PendingBox.js'
 import importStyle from '../style.js';
 import TristateCheckBox from '../Component/tristate_checkBox.js';
+import WeekView from '../Component/WeekView.js';
+import * as dateHelper from '../DataClass/dateHelper.js'
 
 function HomeScreen({ navigation }) {
 
   const [tickState, setTickState] = useState(0);
+  const [shownDate, setShownDate] = useState(new Date());
   
   const insets = useSafeAreaInsets();
   const headerHeight = useHeaderHeight();
@@ -73,6 +76,11 @@ function HomeScreen({ navigation }) {
             <TristateCheckBox size={25} style={{marginTop:20}} color='#0065FF'
               onPress={()=>{setTickState(tickState == 2 ? 0 : tickState + 1) }}
               check={tickState == 1} indeterminate={tickState == 2}/>
+
+            <WeekView date={shownDate} 
+              onNextWeek={()=>{setShownDate(dateHelper.daysAfter(shownDate,7))}}
+              onLastWeek={()=>{setShownDate(dateHelper.daysBefore(shownDate,7))}}
+              />
             
         </View>
       </View>
