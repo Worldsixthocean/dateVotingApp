@@ -17,6 +17,8 @@ import styles from '../style.js';
 import {userInList, editEvent} from '../DataClass/event.js'
 import DateRow from '../Component/DateRow.js';
 import { Namebox } from '../Component/NameBox.js';
+import WeekView from '../Component/WeekView.js';
+import * as dateHelper from '../DataClass/dateHelper.js'
 
 const Stack = createNativeStackNavigator();
 
@@ -90,6 +92,8 @@ export function EventPage({ route, navigation,
     const [picking, setPicking] = useState(false);
 
     const [eventDoc, setEventDoc] = useState();
+
+    const [shownDate, setShownDate] = useState(new Date());
 
     const handleSubmit = ()=>{
         if(eventName.trim() && times.length && attenders.length){
@@ -221,10 +225,10 @@ export function EventPage({ route, navigation,
             )}
                 
         <ScrollView style={{
-                paddingTop: 30,
+                paddingTop: 27,
                 paddingBottom: 0,
-                paddingLeft: 30,
-                paddingRight: 30}}>
+                paddingLeft: 23,
+                paddingRight: 23}}>
             
             <View id='name_input' style={{marginBottom:10}}>
                 <TextInput 
@@ -328,7 +332,14 @@ export function EventPage({ route, navigation,
             <Text style={styles.sectionTitle}>Dates</Text>
             
             <View id='propose_dates' style={[{marginBottom:30}]}>
-                
+
+                <WeekView date={shownDate} 
+                    onNextWeek={()=>{setShownDate(dateHelper.daysAfter(shownDate,7))}}
+                    onLastWeek={()=>{setShownDate(dateHelper.daysBefore(shownDate,7))}}
+                    events={times}
+                    setTimes={setTimes}
+                ></WeekView>
+
                 {times.map((date, index) => {
                     //console.log(times);
                     return (

@@ -1,6 +1,9 @@
 import { StyleSheet} from 'react-native';
 
 export default styles = StyleSheet.create({
+    text_777:{
+      color:'#777'
+    },
     card: {
       backgroundColor:"#fff",
       borderRadius: 10,

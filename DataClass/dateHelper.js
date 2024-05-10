@@ -1,5 +1,9 @@
+function isDate(myDate) {   //https://www.w3schools.com/js/js_typeof.asp
+    return myDate?.constructor === Date;
+  }
+
 function LeapYear(year){
-    if(year % 4 == 0){
+    if(year % 4 == 0){//optimisation needed
         if(year % 100 == 0){
             if(year % 400 == 0){
                 return true;
@@ -62,6 +66,47 @@ export function daysBefore(date, days){
         return daysBefore(new Date(year, month, day - 1), days - 1);
     }
 
+}
+
+export function sameDateOrEariler(early,late){
+    return (sameDate(early,late) || earlierThan(early,late));
+}
+
+export function sameDate(date1, date2){
+    if(!(isDate(date1) && isDate(date2))){
+        console.log('earlierThanError: both early and late has to be type Date');
+        return false;
+    }
+
+    return (
+        date1.getFullYear() == date2.getFullYear() && 
+        date1.getMonth() == date2.getMonth() && 
+        date1.getDate() == date2.getDate());
+}
+
+export function earlierThan(early, late){
+    if(!(isDate(early) && isDate(late))){
+        console.log('earlierThanError: both early and late has to be type Date');
+        return false;
+    }
+
+    if(early.getFullYear() == late.getFullYear()){
+        if(early.getMonth() == late.getMonth()){
+            return (early.getDate() < late.getDate());
+        }
+        else return (early.getMonth() < late.getMonth());
+    }
+    else return (early.getFullYear() < late.getFullYear());
+
+}
+
+
+export function firebaseTimestampToDate(timestamp){
+    if(timestamp){
+        return new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000);
+    }
+    console.log("firebaseTimestampToDate Error: timestamp is not defined");
+    return undefined;
 }
 
 export function daysAfter(date, days){
