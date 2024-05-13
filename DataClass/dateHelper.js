@@ -100,15 +100,6 @@ export function earlierThan(early, late){
 
 }
 
-
-export function firebaseTimestampToDate(timestamp){
-    if(timestamp){
-        return new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000);
-    }
-    console.log("firebaseTimestampToDate Error: timestamp is not defined");
-    return undefined;
-}
-
 export function daysAfter(date, days){
     if (days == 0) return date;
 

@@ -8,7 +8,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-import { doc, getDoc, onSnapshot,Timestamp } from "firebase/firestore";
+import { doc, getDoc, onSnapshot,Timestamp,toDate } from "firebase/firestore";
 
 import { db } from '../ContextAndConfig/firebaseConfig.js'
 import { UserContext } from '../ContextAndConfig/UserContext.js';
@@ -183,10 +183,6 @@ export function EventPage({ route, navigation,
         );
     }
 
-    const firebaseTimstampToDate = (timestamp) => {
-        return new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000);
-    }
-
     useEffect(()=>{
         if(picking && show == false && mode == 'date'){
             showTimepicker();
@@ -346,7 +342,7 @@ export function EventPage({ route, navigation,
                     <View style={[{marginBottom:10}]} key={index}> 
 
                         <DateRow 
-                            date={dateToString(firebaseTimstampToDate(date.date))} 
+                            date={dateToString(date.date.toDate())} 
                             index={index} 
                             times={times} 
                             setTimes={setTimes}>

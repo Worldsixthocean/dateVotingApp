@@ -9,6 +9,7 @@ import { UserContext } from '../ContextAndConfig/UserContext';
 import {userInList} from '../DataClass/event.js'
 import TristateCheckBox from '../Component/tristate_checkBox.js';
 
+//A list of propose date for ppl to vote
 function DateRow( {date, index, times, setTimes} ) {
 
     const user = useContext(UserContext);
