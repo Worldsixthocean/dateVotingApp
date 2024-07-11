@@ -74,7 +74,8 @@ function HomeScreen({ navigation }) {
                 }
             }}/>
             <TristateCheckBox size={25} style={{marginTop:20}} color='#0065FF'
-              onPress={()=>{setTickState(tickState == 2 ? 0 : tickState + 1) }}
+              onPress={()=>{setTickState(tickState == 0 ? 1 : 0)}}
+              onLongPress={()=>{setTickState(2)}}
               check={tickState == 1} indeterminate={tickState == 2}/>
 
             <WeekView date={shownDate} 

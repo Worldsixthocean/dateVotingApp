@@ -15,6 +15,14 @@ function LeapYear(year){
     return false;
 }
 
+export function dateToString(date) {
+    return(
+        date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + '  ' +
+        (date.getHours() < 10 ? '0' + date.getHours() :  date.getHours()) + ':' + 
+        (date.getMinutes() < 10 ? '0' + date.getMinutes() :  date.getMinutes())
+    );
+}
+
 function LongMonth(month){
     switch(month){
         case 0:

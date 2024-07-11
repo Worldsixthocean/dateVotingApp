@@ -8,6 +8,8 @@ import TimeRow from './TimeRow.js';
 //import { toDate } from 'firebase/firestore'; 
 
 import { sameDateOrEariler } from '../DataClass/dateHelper.js';
+import { leadingZeros } from '../Utils/type.js';
+import TimeSlot from './TimeSlot.js';
 
 export default function WeekView({date = new Date(), events = [], Duration = 15, onNextWeek = ()=>{}, onLastWeek = ()=>{}, setTimes = ()=>{}}){
 
@@ -39,23 +41,29 @@ export default function WeekView({date = new Date(), events = [], Duration = 15,
         }
     });
 
+    let tableHeight = 700;
+
     return(
         <View style={{backgroundColor:'#ddd', height:300, borderRadius:20, padding:15}}>
+
             <View style={{flexDirection:'row',paddingBottom:13}}>
                 <Pressable style={{marginTop:5}} onPress={onLastWeek}><Icon name="keyboard-arrow-left" size={23}/></Pressable>
                 {week.map((d,i)=><WeekDayView date={d} key={i} style={{flex:1}}/>)}
                 <Pressable style={{marginTop:5}} onPress={onNextWeek}><Icon name="keyboard-arrow-right" size={23}/></Pressable>
-           </View>
-           <ScrollView style={{flex:1}} nestedScrollEnabled={true}>
-                <View style={{height:700, flexDirection:'row'}}>
+            </View>
+
+            <ScrollView style={{flex:1}} nestedScrollEnabled={true}>
+                <View style={{height:tableHeight, flexDirection:'row'}}>
+                    <HorizontalLines/>{/* absolute */}
                     <TimeRow style={{width:23}}></TimeRow>
                     <View style={{flex:1}}>
-                        <TimeSlotColumns filteredEvents={filteredEvents} week={week} length={60}/>
+                        <TimeSlotColumns filteredEvents={filteredEvents} week={week} length={60} tableHeight={tableHeight}
+                        times={events} setTimes={setTimes}/>
                     </View>
                     <View style={{width:23}}></View>
-                    <HorizontalLines/>{/* absolute */}
                 </View>
-           </ScrollView>
+            </ScrollView>
+
         </View>
 )}
 
@@ -69,25 +77,28 @@ function HorizontalLines(){
     )
 }
 
-function TimeSlotColumns({filteredEvents, week, length = 60}){
-
-   filteredEvents?.forEach((e,i)=>{console.log(i, e)});
-   console.log(week);
+function TimeSlotColumns({filteredEvents, week, length = 60, tableHeight, times = [], setTimes = ()=>{}}){
 
     return(
     <View style={{flex:1, flexDirection:'row'}}>
         {filteredEvents.map((events, index)=>(
-            <TimeSlotColumn events={events} key={index}/>
+            <TimeSlotColumn events={events} key={index} tableHeight={tableHeight} length={length} times={times} setTimes={setTimes}/>
         ))}
     </View>
     );
 }
 
-function TimeSlotColumn({events}){
+function TimeSlotColumn({events, tableHeight, length = 60, times = [], setTimes = ()=>{}}){
+    //events?.forEach((e)=>{console.log(e)});
+
     return(
-        <View style={{flex:1, borderColor:'black' ,borderWidth:1}}>
-        {events.length ? events.map((event, index)=>(<Text> {event.date.getHours()} </Text>)) : <Text>ne</Text>}
-        <View style={{position:'absolute', height:'10%',width:'100%', backgroundColor:'cyan',borderRadius:6}}></View>
+        <View style={{flex:1}}>
+            {events.map((event, index)=>(
+            <View style={{position:'absolute', height:'100%', width:'100%'}} key={index}>
+                <TimeSlot event={event} index={event.index} times={times} setTimes={setTimes} length={length} tableHeight={tableHeight}></TimeSlot>
+                
+            </View>
+            ))}
         </View>
     )
 }

@@ -9,7 +9,7 @@ export async function addEvent(user, name, details, attendees, dates, organizers
         eventName: name,
         description: details,
         attendees: attendees,
-        dates: dates.map((date)=> ({date: date, available: []})),
+        dates: dates.map((date)=> ({date: date, available: [], maybe: []})),
         organizers: organizers,
         pending: pending
       });
