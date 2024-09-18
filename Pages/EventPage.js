@@ -144,6 +144,7 @@ export function EventPage({ route, navigation,
     const isOrganizer = userInList(eventDoc?.organizers ,user.uid);
     //console.log(isOrganizer);
 
+    //set the new proposed date and add it to the list of proposed time
     const onChange = (event, selectedDate) => {
         if(event.type == 'set'){
             const currentDate = selectedDate;
@@ -152,7 +153,8 @@ export function EventPage({ route, navigation,
             
             if(mode == 'time'){
                 setTimes(times.concat([{
-                    available: [],
+                    available: [], 
+                    maybe: [],
                     date : Timestamp.fromDate(currentDate)
                 }]));
             }

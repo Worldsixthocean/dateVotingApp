@@ -73,16 +73,6 @@ function HomeScreen({ navigation }) {
                   console.log(err.message);
                 }
             }}/>
-            <TristateCheckBox size={25} style={{marginTop:20}} color='#0065FF'
-              onPress={()=>{setTickState(tickState == 0 ? 1 : 0)}}
-              onLongPress={()=>{setTickState(2)}}
-              check={tickState == 1} indeterminate={tickState == 2}/>
-
-            <WeekView date={shownDate} 
-              onNextWeek={()=>{setShownDate(dateHelper.daysAfter(shownDate,7))}}
-              onLastWeek={()=>{setShownDate(dateHelper.daysBefore(shownDate,7))}}
-              />
-            
         </View>
       </View>
     </View>

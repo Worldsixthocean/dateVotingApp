@@ -7,7 +7,7 @@ import { getAuth } from "firebase/auth";
 // import {...} from "firebase/database";
 import { getFirestore, collection } from 'firebase/firestore';
 // import {...} from "firebase/functions";
-// import {...} from "firebase/storage";
+import { getStorage } from "firebase/storage";
 
 // Initialize Firebase
 const firebaseConfig = {
@@ -16,7 +16,8 @@ const firebaseConfig = {
     projectId: "project-cd7e5",
     storageBucket: "project-cd7e5.appspot.com",
     messagingSenderId: "426126137112",
-    appId: "1:426126137112:web:f3aa91a1434194f432b06d"
+    appId: "1:426126137112:web:f3aa91a1434194f432b06d",
+    storageBucket: ""
   };
   
 
@@ -31,6 +32,8 @@ initializeAuth(app, {
 
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+export const storage = getStorage(app);
+
 
 export const users = collection(db, 'users');
 export const events = collection(db, 'events');
