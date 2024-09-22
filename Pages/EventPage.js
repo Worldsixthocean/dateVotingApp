@@ -222,7 +222,8 @@ export function EventPage({ route, navigation,
                 onChange={onChange}/>
             )}
                 
-        <ScrollView style={{
+        <ScrollView 
+            style={{
                 paddingTop: 27,
                 paddingBottom: 0,
                 paddingLeft: 23,

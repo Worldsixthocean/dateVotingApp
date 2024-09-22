@@ -1,24 +1,24 @@
 import * as React from 'react';
 import { useContext, useState } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, Image, ScrollView } from 'react-native';
 import { useHeaderHeight } from '@react-navigation/elements';
 
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { signOut } from 'firebase/auth';
 
-import { auth } from '../ContextAndConfig/firebaseConfig.js';
+import { auth, storage } from '../ContextAndConfig/firebaseConfig.js';
 import { UserContext } from '../ContextAndConfig/UserContext.js';
 import PendingBox from '../Component/PendingBox.js'
 import importStyle from '../style.js';
+
+import { getDownloadURL,ref } from 'firebase/storage';
 import TristateCheckBox from '../Component/tristate_checkBox.js';
 import WeekView from '../Component/WeekView.js';
-import * as dateHelper from '../DataClass/dateHelper.js'
 
 function HomeScreen({ navigation }) {
 
-  const [tickState, setTickState] = useState(0);
-  const [shownDate, setShownDate] = useState(new Date());
+  const [imgState, setimgState] = useState();
   
   const insets = useSafeAreaInsets();
   const headerHeight = useHeaderHeight();
@@ -33,6 +33,9 @@ function HomeScreen({ navigation }) {
     cardContent = <></>
   }
 
+
+
+
   React.useEffect(() => {
     navigation.setOptions({
       headerTransparent: true,
@@ -40,6 +43,20 @@ function HomeScreen({ navigation }) {
       headerBackVisible: false
     });
   });
+
+  React.useEffect(() => {
+    const func = async() => {
+      const imgReference = ref(storage, 'Coffee.png');
+      await getDownloadURL(imgReference).then((x)=>{
+        setimgState(x);
+      });
+    }
+    
+    if (imgState == undefined){
+      func();
+    }
+
+  },[]);
 
   return (
     <View>
@@ -73,6 +90,11 @@ function HomeScreen({ navigation }) {
                   console.log(err.message);
                 }
             }}/>
+          <View style={{height:250, width:'100%', marginTop:50}}>
+            <ScrollView scrollEnabled={false}>
+              <Image style={{height:300, width:'100%'}}source={{uri:imgState}}/>
+            </ScrollView>
+          </View>
         </View>
       </View>
     </View>

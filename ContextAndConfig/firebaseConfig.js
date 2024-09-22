@@ -17,7 +17,7 @@ const firebaseConfig = {
     storageBucket: "project-cd7e5.appspot.com",
     messagingSenderId: "426126137112",
     appId: "1:426126137112:web:f3aa91a1434194f432b06d",
-    storageBucket: ""
+    storageBucket: "project-cd7e5.appspot.com"
   };
   
 

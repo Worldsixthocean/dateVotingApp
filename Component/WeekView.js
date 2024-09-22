@@ -52,7 +52,7 @@ export default function WeekView({date = new Date(), events = [], Duration = 15,
                 <Pressable style={{marginTop:5}} onPress={onNextWeek}><Icon name="keyboard-arrow-right" size={23}/></Pressable>
             </View>
 
-            <ScrollView style={{flex:1}} nestedScrollEnabled={true}>
+            <ScrollView style={{flex:1}} nestedScrollEnabled={true} contentOffset={{x: 0, y: 9 / 24 * tableHeight}}>
                 <View style={{height:tableHeight, flexDirection:'row'}}>
                     <HorizontalLines/>{/* absolute */}
                     <TimeRow style={{width:23}}></TimeRow>

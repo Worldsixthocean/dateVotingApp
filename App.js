@@ -15,6 +15,7 @@ import EventScreen from './Pages/EventScreen.js';
 import DrawerContent from './Component/DrawerContent.js';
 import LoginScreen from './Pages/Login.js';
 import NotiScreen from './Pages/Noti.js'
+import TestScreen from './Pages/TestPage.js';
 import useAuth from './ContextAndConfig/AuthContext.js';
 import {db} from './ContextAndConfig/firebaseConfig.js';
 
@@ -94,6 +95,8 @@ function App() {
               />
 
               <Drawer.Screen name="Notification" component={NotiScreen}/>
+
+              <Drawer.Screen name="Test" component={TestScreen}/>
 
             </Drawer.Navigator>
           </NavigationContainer>
